@@ -1,0 +1,36 @@
+{
+    "name": "backtick-log",
+    "displayName": "Backtick Log",
+    "description": "Quick simple logging with backticks",
+    "version": "0.0.1",
+    "main": "./src/extension.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "engines": {
+        "vscode": "^1.60.0"
+    },
+    "keywords": [],
+    "author": "bronze-tree@gmail.com",
+    "license": "ISC",
+    "contributes": {
+        "commands": [
+            {
+                "command": "extension.addLog",
+                "title": "Add Log",
+                "category": "Extension"
+            }
+        ],
+        "keybindings": [
+            {
+                "command": "extension.addLog",
+                "key": "ctrl+alt+k",
+                "mac": "cmd+alt+k",
+                "when": "editorTextFocus"
+            }
+        ]
+    },
+    "devDependencies": {
+        "vscode": "^1.1.37"
+    }
+}
