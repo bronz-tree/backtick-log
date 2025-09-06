@@ -30,6 +30,12 @@
                 "command": "extension.addLog",
                 "key": "ctrl+alt+l",
                 "when": "editorTextFocus",
+                "os": "linux"
+            },
+            {
+                "command": "extension.addLog",
+                "key": "ctrl+alt+l",
+                "when": "editorTextFocus",
                 "os": "win"
             },
             {
