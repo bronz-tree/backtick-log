@@ -1,20 +1,8 @@
-const vscode = require("vscode")
-
-//  basic working alt ctrl k just to have indication
-// function activate(context) {
-//     // Register the command
-//     let disposable = vscode.commands.registerCommand('extension.addLog', function () {
-//         vscode.window.showInformationMessage('You pressed Ctrl + Alt + K!');
-//     });
-
-//     // Push it to the subscriptions, so it gets disposed of when the extension is deactivated
-//     context.subscriptions.push(disposable);
-// }
+const vscode = require('vscode')
 
 const activate = async (context) => {
     let disposable = vscode.commands.registerCommand('extension.addLog', async () => {
         const editor = vscode.window.activeTextEditor
-        
         if (!editor) return
 
         const fileName = editor.document.fileName.split('/').pop()
@@ -25,16 +13,15 @@ const activate = async (context) => {
         let selectionsString = selections
             .map((selection) => {
                 const text = editor.document.getText(selection)
-                return `${text}: \${${text}}`  // Format as text: ${text}
+                return `${text}: \${${text}}`
             })
             .join(' || ')
 
-        const logString = `\`${fileName} ~ ${functionName} ~ ${selectionsString}\``
+        const logString = `console.log(\`${fileName} ~ ${functionName} ~ ${selectionsString}\`)`
 
         const position = editor.selection.end
         // Move to the next line after the selection
         const nextLinePosition = position.translate(1, 0)
-        const nextLineText = editor.document.lineAt(nextLinePosition.line).text
 
         // Insert the log string at the beginning of the next line
         await editor.edit((editBuilder) => {
@@ -43,7 +30,7 @@ const activate = async (context) => {
         })
 
         // Move the cursor to the newly inserted log
-        const newCursorPosition = nextLinePosition.translate(0, logString.length + 1)  // Move to the end of the log
+        const newCursorPosition = nextLinePosition.translate(0, logString.length + 1) // Move to the end of the log
         editor.selection = new vscode.Selection(newCursorPosition, newCursorPosition)
         editor.revealRange(new vscode.Range(newCursorPosition, newCursorPosition))
     })
@@ -64,7 +51,7 @@ const getFunctionName = (editor, position) => {
     }
 
     // Fallback: Look back through the document for function declarations
-    const lines = editor.document.getText().split("\n")
+    const lines = editor.document.getText().split('\n')
     for (let i = position.line; i >= 0; i--) {
         const match = lines[i].match(functionRegex)
         if (match) {
@@ -72,7 +59,7 @@ const getFunctionName = (editor, position) => {
         }
     }
 
-    return ""
+    return ''
 }
 
 const deactivate = () => {}
