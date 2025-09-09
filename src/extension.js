@@ -26,7 +26,7 @@ const activate = async (context) => {
         // Insert the log string at the beginning of the next line
         await editor.edit((editBuilder) => {
             // Insert the log string at the beginning of the next line
-            editBuilder.insert(nextLinePosition, ` ${logString}\n`)
+            editBuilder.insert(nextLinePosition, `\n${logString}\n`)
         })
 
         // Move the cursor to the newly inserted log
